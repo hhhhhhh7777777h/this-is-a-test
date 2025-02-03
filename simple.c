@@ -1,31 +1,22 @@
-/**
- * simple.c
- *
- * A simple kernel module. 
- * 
- * To compile, run makefile by entering "make"
- *
- * Operating System Concepts - 10th Edition
- * Copyright John Wiley & Sons - 2018
- */
-
 #include <linux/init.h>
 #include <linux/module.h>
 #include <linux/kernel.h>
-#include <linux/hash.h>
-#include <linux/gcd.h>
-#include <linux/jiffies.h>
-#include <asm/param.h>
+#include <linux/hash.h>   // For GOLDEN_RATIO_PRIME
+#include <linux/gcd.h>    // For gcd function
+#include <linux/jiffies.h> // For jiffies
+#include <asm/param.h>    // For HZ
 
 /* This function is called when the module is loaded. */
 static int simple_init(void)
 {
     printk(KERN_INFO "Loading Module\n");
 
-    printk(KERN_INFO "golden: %lu\n", GOLDEN_RATIO_PRIME);
+    // Print GOLDEN_RATIO_PRIME
+    printk(KERN_INFO "GOLDEN_RATIO_PRIME: %lu\n", GOLDEN_RATIO_PRIME);
 
-    printk(KERN_INFO "hz: %d\n", HZ);
-    printk(KERN_INFO "jiffies: %lu\n", jiffies);
+    // Print HZ and jiffies at initialization
+    printk(KERN_INFO "HZ (Tick Rate): %d\n", HZ);
+    printk(KERN_INFO "Initial jiffies: %lu\n", jiffies);
 
     return 0;
 }
@@ -35,11 +26,14 @@ static void simple_exit(void)
 {
     printk(KERN_INFO "Removing Module\n");
 
-    printk(KERN_INFO "gcd: %lu\n", gcd(3300, 24));
+    // Print gcd of 3300 and 24
+    printk(KERN_INFO "GCD of 3300 and 24: %lu\n", gcd(3300, 24));
 
     // Print jiffies at exit
-    printk(KERN_INFO "jiffies: %lu\n", jiffies);
+    printk(KERN_INFO "Final jiffies: %lu\n", jiffies);
 
+    // Calculate elapsed time in seconds
+    printk(KERN_INFO "Time elapsed: %lu seconds\n", (jiffies - jiffies) / HZ);
 }
 
 /* Macros for registering module entry and exit points. */
