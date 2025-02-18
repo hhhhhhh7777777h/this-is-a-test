@@ -76,7 +76,7 @@ static ssize_t proc_read(struct file *file, char __user *usr_buf, size_t count, 
         if (!tsk)
                 return 0;
         // output string formatting
-        rv = snprintf(buffer, BUFFER_SIZE, "Command: [%s] PID: [%d] State: [%ld]\n", tsk->comm, tsk->pid, tsk->state);
+        rv = snprintf(buffer, BUFFER_SIZE, "== Hayden Holmberg ==\nPID Entered: %d\nName:%s\nState:%ld\n", tsk->pid, tsk->comm, tsk->state);
 
         completed = 1;
 
@@ -112,7 +112,7 @@ static ssize_t proc_write(struct file *file, const char __user *usr_buf, size_t 
 	 * sscanf() must be used instead.
 	 */
         sscanf(k_mem, "%ld", &l_pid);
-        printk(KERN_INFO "pid: %ld\n", l_pid);
+        printk(KERN_INFO "== Hayden Holmberg ==\nPID: %ld\n", l_pid);
         /* Dr. Alghazo: The zyBooks states to use kstrtol, however the source code which I got from the link you provided
         (see above comment) clearly states to use sscanf instead, so I am using that function. I am not really sure
         why there is a discrepancy, maybe one of these sources is more updated than the other, but I hope this will suffice.*/
